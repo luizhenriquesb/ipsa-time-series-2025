@@ -152,9 +152,5 @@ model <- lm(
 
 summary(model)
 
-
-data
-
-
 usethis::use_git()
 usethis::use_github()
