@@ -152,5 +152,10 @@ model <- lm(
 
 summary(model)
 
-usethis::use_git()
-usethis::use_github()
+#usethis::use_git()
+#usethis::use_github()
+
+write_csv(
+  x = data,
+  file = "02_outputs/data.csv"
+)
