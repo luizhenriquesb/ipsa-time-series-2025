@@ -1,6 +1,6 @@
 clear
 cd "C:\Users\fcslab18\Documents\TS2025 - Luiz H"
-use "data.dta"
+use "datav2.dta"
 
 tsset year
 
