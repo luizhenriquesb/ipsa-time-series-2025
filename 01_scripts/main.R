@@ -22,9 +22,19 @@ inflation <- readxl::read_xls(
 
 # 3. Transform ------------------------------------------------------------
 
-# Filtering only Brazil
+latin_american_countries <- c(
+  "Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Costa Rica", 
+  "Cuba", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala", 
+  "Honduras", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", 
+  "Uruguay", "Venezuela"
+)
+
+# Filtering only latin american countries
 df <- df |> 
-  filter(country_name == "Brazil") 
+  filter(country_name %in% latin_american_countries) 
+
+df |> 
+  distinct(country_name)
 
 # Remove the first line because it is null
 inflation <- inflation[-1,]
@@ -102,7 +112,9 @@ df <- df |>
     
     # Does the Election Management Body (EMB) have autonomy from government to apply
     # election laws and administrative rules impartially in national elections?
-    v2elembaut
+    v2elembaut,
+    
+    country_name
   )
 
 summary(df['v2elmulpar'])
@@ -159,3 +171,9 @@ write_csv(
   x = data,
   file = "02_outputs/data.csv"
 )
+
+haven::write_dta(
+  data = data,
+  path = "02_outputs/data.dta"
+)
+
