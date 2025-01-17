@@ -1,0 +1,11 @@
+
+1. Main script just use the Brazil in the codes, but export a .dta file
+without latam countries
+
+2. Because of that, we need at the start of the script filter just the brazil in a dataframe x and save in a dataframe y all latam countries
+
+3. In the end, we export both dataframes
+
+4. To do the graphs, we need dataframe with latam countries
+
+5. But, in stata, we just need Brazil

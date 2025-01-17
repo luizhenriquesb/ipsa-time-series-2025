@@ -3,6 +3,10 @@ library(urca)
 
 df <- haven::read_dta("02_outputs/data.dta")
 
+range(df$year)
+df |> 
+  distinct(country_name)
+  
 df <- df |> 
   filter(year >= 1889)
 

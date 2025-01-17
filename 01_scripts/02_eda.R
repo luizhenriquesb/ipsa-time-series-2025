@@ -4,10 +4,23 @@ library(glue)
 
 df <- haven::read_dta("02_outputs/data.dta")
 
-df <- df |> 
-  filter(year >= 1889)
+range(df$year)
 
-g1 <- df |> 
+df <- df |> filter(year >= 1889)
+
+df |> 
+  filter(country_name == "Brazil") |> 
+  summarise(
+    mean = mean(v2xel_frefair),
+    median = median(v2xel_frefair),
+    sd = sd(v2xel_frefair),
+    min = min(v2xel_frefair),
+    max = max(v2xel_frefair),
+  )
+
+### Graph 1
+g1 <- df |>
+  filter(country_name == "Brazil") |> 
   ggplot() +
   aes(x = v2xel_frefair) +
   geom_histogram(
@@ -17,13 +30,15 @@ g1 <- df |>
   ) +
   theme_classic() +
   labs(
-    title = "Clean Election Index in Brazil (V-DEM)",
+    title = "Clean Elections Index in Brazil (V-DEM)",
     x = "",
     y = ""
   )
 
 g1
 
+
+### Graph 2
 mean_latam <- df |> 
   summarise(mean = mean(v2xel_frefair, na.rm = TRUE)) |> 
   pull(mean)
@@ -46,7 +61,7 @@ g2 <- df |>
   geom_vline(xintercept = mean_latam, linetype = "dashed") +
   theme_bw() +
   labs(
-    title = "Distribution of Clean Election Index in Brazil (V-DEM)",
+    title = "Distribution of Clean Elections Index in Brazil (V-DEM)",
     x = "",
     y = "",
     fill = "Country"
@@ -76,21 +91,14 @@ g2 <- df |>
   )
 g2
 
+
+### Graph 3
 time_points <- df |> 
   filter(country_name == "Brazil") |> 
   count(year) |> 
   summarise(total = sum(n)) |> 
   pull(total)
 
-df |> 
-  filter(country_name == "Brazil") |> 
-  summarise(
-    mean = mean(v2xel_frefair),
-    median = median(v2xel_frefair),
-    sd = sd(v2xel_frefair),
-    min = min(v2xel_frefair), 
-    max = max(v2xel_frefair)
-    )
 
 g3 <- df |> 
   filter(country_name == "Brazil") |> 
@@ -105,7 +113,7 @@ g3 <- df |>
   ) +
   theme_bw() +
   labs(
-    title = "Clean Election Index in Brazil (V-DEM) over time (1889 - 2023)",
+    title = "Clean Elections Index in Brazil (V-DEM) over time (1889 - 2023)",
     x = "",
     y = ""
   ) +

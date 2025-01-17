@@ -172,6 +172,12 @@ write_csv(
   file = "02_outputs/data.csv"
 )
 
+data <- data |> 
+  filter(country_name == "Brazil", year >= 1889)
+
+data <- data |> 
+  select(year, v2xel_frefair)
+
 haven::write_dta(
   data = data,
   path = "02_outputs/data.dta"
